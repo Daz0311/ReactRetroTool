@@ -1,0 +1,107 @@
+/* Assicura che .App prenda tutta la pagina e si ridimensioni automaticamente */
+.App {
+  
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f2ed;
+  min-height: 100vh; /* Imposta l'altezza minima a 100% della viewport */
+  display: flex;
+  flex-direction: column; /* Imposta la direzione degli elementi al suo interno in colonna */
+  align-items: center; /* Centra orizzontalmente gli elementi */
+  box-sizing: border-box;
+}
+
+/* Per l'intestazione della tua app */
+.App-header {
+  background-color: white;
+  border-bottom: 2px solid #000;
+  width: 100%; /* Imposta la larghezza al 100% del contenitore */
+  text-align: end;
+  
+}
+
+/* Intestazione H2 */
+#retro {
+  margin-right: 20px;
+  color: #000;
+  /* align-self: flex-start; 
+  transform: scaleX(-1); */
+  /* direction: rtl; */
+  
+}
+
+/* Per la sezione principale */
+main {
+  margin-top: 20px;
+  flex: 1; /* Permette a main di espandersi per riempire lo spazio disponibile */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Modifica l'H1 per spostarlo a sinistra e centrarlo verticalmente */
+h1 {
+  font-size: 35px;
+  margin-bottom: 20px;
+  color: #000;
+ /* Allinea l'elemento H1 a sinistra */
+  margin-left: 20px; /* Aggiungi margine a sinistra per distanziarlo dal bordo */
+}
+
+/* Contenitore dei template */
+.template-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Stili per i pulsanti */
+
+img {
+  width: 60px;
+} 
+/* Stili per i pulsanti */
+.template-button {
+  background-color: white;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #000;
+}
+
+/* Stile quando il pulsante è attivo */
+.template-button.active {
+  border-color: green;
+  color: green;
+}
+
+.template-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Stili per il pulsante "Create Retro" */
+.create-retro-button {
+  background-color: #d9dad7;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+  transition: background-color 0.3s ease;
+}
+
+/* Stile quando "Create Retro" è attivo */
+.create-retro-button.active {
+  background-color: green;
+  border-color: green;
+  color: white;
+}
+
+.create-retro-button:hover {
+  background-color: #c0c0c0;
+}
+
