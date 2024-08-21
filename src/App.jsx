@@ -9,11 +9,10 @@ import './MadSadGlad/MadSadGladPage.css';
 import FirstPage from './MadSadGlad/MadSadGladPage.jsx';
 
 function App() {
-  const [count, setCount] = useState(0);
+  
 
   return (
     <>
-      
       <FirstPage />
     </>
   );

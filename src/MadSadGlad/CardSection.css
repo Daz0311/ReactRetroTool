@@ -1,0 +1,78 @@
+.cards-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.new-cards-notification {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.scroll-to-new-cards {
+  flex: 1;
+}
+
+.card {
+  background-color: #fff599;
+  border-radius: 8px;
+  padding: 16px;
+  color: black; /* Cambiato da white a black per il testo */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 100%; /* Assicurati che la card non superi l'altezza disponibile */
+  overflow: hidden;
+
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  max-height: 100%;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.card-description-container {
+  flex: 1;
+  overflow: hidden;
+  /* overflow: auto; */
+  /* errore qui era hidden */
+  width: fit-content;
+  height: fit-content;
+  max-width: 150px;
+  max-height:  125px;
+  resize: none; /* Disabilita il ridimensionamento manuale */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra per dare un effetto di rilievo */
+  border: 1px solid #ddd; /* Bordo leggero per maggiore definizione */
+  border-radius: 4px; /* Angoli arrotondati per un aspetto più morbido */
+  margin-bottom: 5px;
+}
+
+.text-field {
+  font-size: 16px;
+  background-color:#fff599; /* Colore di sfondo per il campo di testo */
+  overflow: hidden;
+  resize: none; /* Disabilita il ridimensionamento manuale */
+  overflow-y: auto;
+  text-align: center;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter {
+    margin-left: auto;
+    color: black;
+    font-size: 14px;
+  }

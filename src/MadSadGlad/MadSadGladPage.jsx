@@ -1,5 +1,7 @@
 import React from 'react';
 import './MadSadGladPage.css';
+import { Button } from '@mui/material';
+import CardSection from './CardSection';
 
 function EditableParagraph({ initialText }) {
   const paragraphRef = React.useRef(null);
@@ -10,14 +12,9 @@ function EditableParagraph({ initialText }) {
     }
   }, [initialText]);
 
-  const handleInput = (e) => {
-    // Il testo modificato non è gestito dallo stato in questo caso
-  };
-
   return (
     <p
       contentEditable
-      onInput={handleInput}
       suppressContentEditableWarning={true}
       className="editable-paragraph"
       ref={paragraphRef}
@@ -34,9 +31,9 @@ function FirstPage() {
             <span className="Retrospective">Untitled retrospective</span>
           </div>
           <div className="nav-center">
-            <button>Print</button>
-            <button>Settings</button>
-            <button>Actions</button>
+            <Button variant="contained">Print</Button>
+            <Button variant="contained">Settings</Button>
+            <Button variant="contained">Actions</Button>
           </div>
           <div className="nav-right">
             <span className="Remira-script">RetroRemira</span>
@@ -49,21 +46,27 @@ function FirstPage() {
           <EditableParagraph
             initialText="What has driven you mad? You might focus on issues, time wasters, unpleasant surprises, etc."
           />
-          <textarea placeholder="Type here..."></textarea>
+          <div className="post-it-container">
+            <CardSection />
+          </div>
         </div>
         <div className="column sad">
           <h2>Sad</h2>
           <EditableParagraph
             initialText="What has made you feel sad? You might focus on failures, issues inside the team, etc."
           />
-          <textarea placeholder="Type here..."></textarea>
+          <div className="post-it-container">
+            <CardSection />
+          </div>
         </div>
         <div className="column glad">
           <h2>Glad</h2>
           <EditableParagraph
             initialText="What has made you feel positive? You might focus on goals achieved, successes, events, etc."
           />
-          <textarea placeholder="Type here..."></textarea>
+          <div className="post-it-container">
+            <CardSection />
+          </div>
         </div>
       </div>
       <footer>
@@ -75,10 +78,6 @@ function FirstPage() {
 
 export default FirstPage;
 
-// rendere fissa la navbar
-//non permettere di aumentare in larghezza e lunghezza
-//creare un altro div che contiene la parte sotto
-// rendere fisso il text area 
-//fare in modo che si arrotondi 
-//aumentare la scritta con font migliori 
-//aumentare la navbar
+
+//inserire i pulsanti per i post it 
+// inserire la cancellazione della colonna 
