@@ -1,0 +1,6 @@
+
+/* rimozione bordi text area */
+.txt-Area{
+
+    outline: none;
+}

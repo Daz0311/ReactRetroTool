@@ -1,10 +1,13 @@
 /* Styles for the overall application */
+
 .App {
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: #f4f4f4;
+
+  
 }
 
 .headerMadSadGlad {
@@ -16,7 +19,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  /* z-index: 1000; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 1.2rem;
 }
@@ -66,6 +69,9 @@
   flex: 1;
   margin-top: 100px;
   margin-bottom: 80px; /* Space above the footer */
+  max-width: 100%;
+  min-width: 100%;
+
 }
 
 .column {
@@ -110,6 +116,7 @@
   text-align: center; /* Centra il testo orizzontalmente */
   padding: 10px; /* Padding per dare spazio interno */
   box-sizing: border-box; /* Assicura che il padding non influisca sulla larghezza totale */
+  font-size: 25px;
 }
 .editable-paragraph:focus {
   outline: none;
@@ -131,7 +138,7 @@ footer {
   padding: 15px;
   background-color: #333;
   color: white;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   bottom: 0;
   font-size: 0.9rem;

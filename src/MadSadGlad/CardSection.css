@@ -41,18 +41,16 @@
 
 .card-description-container {
   flex: 1;
-  overflow: hidden;
-  /* overflow: auto; */
-  /* errore qui era hidden */
   width: fit-content;
   height: fit-content;
   max-width: 150px;
   max-height:  125px;
   resize: none; /* Disabilita il ridimensionamento manuale */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra per dare un effetto di rilievo */
-  border: 1px solid #ddd; /* Bordo leggero per maggiore definizione */
+  border: 2px solid #f1910070; /* Bordo leggero per maggiore definizione */
   border-radius: 4px; /* Angoli arrotondati per un aspetto più morbido */
   margin-bottom: 5px;
+  background-color: #ffe6478e;
 }
 
 .text-field {
@@ -76,3 +74,4 @@
     color: black;
     font-size: 14px;
   }
+
