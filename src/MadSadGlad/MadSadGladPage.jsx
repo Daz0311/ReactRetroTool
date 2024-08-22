@@ -16,6 +16,7 @@ function EditableParagraph({ initialText }) {
     <p
       contentEditable
       suppressContentEditableWarning={true}
+      spellCheck={false}  // Disabilita il controllo ortografico
       className="editable-paragraph"
       ref={paragraphRef}
     />
@@ -78,6 +79,7 @@ function FirstPage() {
 
 export default FirstPage;
 
-
-//inserire i pulsanti per i post it 
-// inserire la cancellazione della colonna 
+//inserire le funzionalità pulsanti
+// l'ok se all'intenro è scirtto qualcosa, mi crea un altro post it all'interno del div e ne volgio massimo 2 per irga e poi dopo scrolla sotto con la barra scorrimento , 
+//la x deve cancellare il coneuto all'interno del post it
+//il pulsate emoji mi deve fare scegliere delle emoji da inserire,
