@@ -70,7 +70,7 @@
   margin-top: 3%;
   /* margin-bottom: 80px; Space above the footer */
   max-width: 90%;
-
+  width: 90%;
 
 }
 
@@ -108,8 +108,8 @@
   overflow-wrap: break-word;
   white-space: pre-wrap;
   width: 100%;
-  height: calc(100% - 150px); /* Imposta l'altezza fissa */
-  max-height: 300px; /* Altezza massima per il contenuto */
+  /* height: calc(100% - 150px); Imposta l'altezza fissa */
+  /* max-height: 300px; Altezza massima per il contenuto */
   overflow-y: auto; /* Scorrimento verticale se necessario */
   background-color: #f8f8f8;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -117,6 +117,9 @@
   padding: 10px; /* Padding per dare spazio interno */
   box-sizing: border-box; /* Assicura che il padding non influisca sulla larghezza totale */
   font-size: 25px;
+  height: 100%;
+
+  
 }
 .editable-paragraph:focus {
   outline: none;
@@ -145,4 +148,28 @@ footer {
   bottom: 0;
   font-size: 0.9rem;
   margin-top: 20px; /* Space between the columns and the footer */
+}
+
+.editable-paragraph-container{
+ 
+  /* margin-top: 8%; */
+  margin-bottom: 5%;
+  height: 100%;
+
+   overflow-y:  auto;
+}
+.editable-card{
+  border-radius: 8px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 100%;
+
+  margin-bottom: 10%;
+
+}
+.editable-paragraph-text{
+outline: none;
+  margin:0
 }
