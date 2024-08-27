@@ -1,13 +1,12 @@
 /* Styles for the overall application */
 
+/* Styles for the overall application */
 .App {
   font-family: 'Arial', sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background-color: #f4f4f4;
-
-  
 }
 
 .headerMadSadGlad {
@@ -16,13 +15,9 @@
   padding-top: 1%;
   padding-bottom: 1%;
   background-color: #fff;
-
   width: 100%;
-  /* z-index: 1000; */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1.2rem;
+  box-shadow: 0
 }
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -99,7 +94,7 @@
 }
 
 .editable-paragraph {
-  display: flex; /* Usa flexbox per centrare il testo */
+  /* Usa flexbox per centrare il testo */
   flex-direction: column; /* Per gestire l'altezza del contenuto */
   justify-content: center; /* Centra verticalmente */
   align-items: center; /* Centra orizzontalmente */
@@ -117,8 +112,8 @@
   padding: 10px; /* Padding per dare spazio interno */
   box-sizing: border-box; /* Assicura che il padding non influisca sulla larghezza totale */
   font-size: 25px;
-  height: 100%;
-
+  height: 50%;
+  align-content: center;
   
 }
 .editable-paragraph:focus {
@@ -153,7 +148,7 @@ footer {
 .editable-paragraph-container{
  
   /* margin-top: 8%; */
-  margin-bottom: 5%;
+ 
   height: 100%;
 
    overflow-y:  auto;
@@ -170,6 +165,7 @@ footer {
 
 }
 .editable-paragraph-text{
+  
 outline: none;
   margin:0
 }

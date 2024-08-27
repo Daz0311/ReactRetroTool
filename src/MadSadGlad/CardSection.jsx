@@ -1,93 +1,79 @@
 import React, { useState } from 'react';
 import { IconButton, Tooltip, Button } from '@mui/material';
-import { Check as CheckIcon, Close as CloseIcon, Edit as EditIcon, Save as SaveIcon } from '@mui/icons-material';
-import './CardSection.css';
+import { Check as CheckIcon, Close as CloseIcon, Edit as EditIcon } from '@mui/icons-material';
 import AutoSizeTextArea from './AutoSizeText';
-import './AutoSizeText.css';
+import './CardSection.css';
 
-function CardSection({ onPublish }) {
-  const [text, setText] = useState('');
-  const [cards, setCards] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+const CardSection = ({ onPublish, column, initialCards = [] }) => {
+  const [cards, setCards] = useState(initialCards);
+  const [newCardText, setNewCardText] = useState('');
+  const [cardStyle, setCardStyle] = useState({});
   const maxCharacters = 140;
 
-  const handleChange = (event) => {
+  const handleNewCardChange = (event) => {
     const newText = event.target.value;
     if (newText.length <= maxCharacters) {
-      setText(newText);
+      setNewCardText(newText);
     }
   };
 
   const handleCardChange = (event, index) => {
     const newText = event.target.value;
     const updatedCards = [...cards];
-    updatedCards[index] = newText;
+    updatedCards[index] = { ...updatedCards[index], text: newText };
     setCards(updatedCards);
   };
 
-  const handleSave = () => {
-    if (text.trim()) {
-      setCards([...cards, text]);
-      setText('');
+  const handleSaveNewCard = () => {
+    if (newCardText.trim()) {
+      const newCard = { text: newCardText, style: cardStyle, isEditing: false };
+      setCards([...cards, newCard]);
+      setNewCardText('');
+      setCardStyle({});
     }
+  };
+
+  const handleSaveEdit = (index) => {
+    const updatedCards = [...cards];
+    updatedCards[index] = { ...updatedCards[index], text: updatedCards[index].text, isEditing: false };
+    setCards(updatedCards);
   };
 
   const handleEdit = (index) => {
-    setEditIndex(index);
+    const updatedCards = [...cards];
+    updatedCards[index] = { ...updatedCards[index], isEditing: true };
+    setCards(updatedCards);
   };
 
-  const handleSaveEdit = () => {
-    setEditIndex(null);
+  const handleCancelEdit = (index) => {
+    const updatedCards = [...cards];
+    updatedCards[index] = { ...updatedCards[index], isEditing: false };
+    setCards(updatedCards);
   };
 
   const handleDelete = (index) => {
-    const newCards = cards.filter((_, i) => i !== index);
-    setCards(newCards);
-    if (editIndex === index) {
-      setEditIndex(null);
-    }
+    const updatedCards = cards.filter((_, i) => i !== index);
+    setCards(updatedCards);
   };
 
   const handlePublishAll = () => {
     if (cards.length > 0) {
-      onPublish(
-        cards.map((cardText, index) => (
-          <div key={index}>
-            <div className="card-content">
-              <div className="card-description-container">
-                <AutoSizeTextArea
-                  value={cardText}
-                  readOnly={true}
-                  minFontSize={8}
-                  maxFontSize={16}
-                  stepGranularity={2}
-                  style={{
-                    width: '100%',
-                    textAlign: 'center',
-                    border: 'none',
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        ))
-      );
-      setCards([]);  // Optionally clear cards after publishing
+      onPublish(cards, column);
+      setCards([]);
     }
   };
 
   return (
     <div className="cards-section">
       <div className="cards-container">
-        {cards.map((cardText, index) => (
-          <div className="card" key={index}>
-            <div className="card-content edit">
+        {cards.map((card, index) => (
+          <div className="card" key={index} style={card.style}>
+            <div className="card-content">
               <div className="card-description-container">
                 <AutoSizeTextArea
-                  value={cardText}
-                  onChange={(event) => handleCardChange(event, index)}// questo devo portarlo anche di là
-                  readOnly={editIndex !== index}
+                  value={card.text}
+                  onChange={(event) => handleCardChange(event, index)}
+                  readOnly={!card.isEditing}
                   minFontSize={8}
                   maxFontSize={16}
                   stepGranularity={2}
@@ -101,34 +87,43 @@ function CardSection({ onPublish }) {
                 />
               </div>
               <div className="buttons">
-                {editIndex === index ? (
-                  <Tooltip title="Save">
-                    <IconButton color="success" onClick={handleSaveEdit}>
-                      <SaveIcon />
-                    </IconButton>
-                  </Tooltip>
+                {card.isEditing ? (
+                  <>
+                    <Tooltip title="Save">
+                      <IconButton color="success" onClick={() => handleSaveEdit(index)}>
+                        <CheckIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Cancel">
+                      <IconButton color="error" onClick={() => handleCancelEdit(index)}>
+                        <CloseIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </>
                 ) : (
-                  <Tooltip title="Edit">
-                    <IconButton color="default" onClick={() => handleEdit(index)}>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
+                  <>
+                    <Tooltip title="Edit">
+                      <IconButton color="primary" onClick={() => handleEdit(index)}>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <IconButton color="error" onClick={() => handleDelete(index)}>
+                        <CloseIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </>
                 )}
-                <Tooltip title="Delete">
-                  <IconButton color="error" onClick={() => handleDelete(index)}>
-                    <CloseIcon />
-                  </IconButton>
-                </Tooltip>
               </div>
             </div>
           </div>
         ))}
         <div className="card new-card">
-          <div className="card-content edit">
+          <div className="card-content">
             <div className="card-description-container">
               <AutoSizeTextArea
-                value={text}
-                onChange={handleChange}
+                value={newCardText}
+                onChange={handleNewCardChange}
                 placeholder="Type here"
                 minFontSize={8}
                 maxFontSize={16}
@@ -143,17 +138,17 @@ function CardSection({ onPublish }) {
               />
             </div>
             <div className="buttons">
-              <Tooltip>
-                <IconButton color="success" onClick={handleSave}>
+              <Tooltip title="Save">
+                <IconButton color="success" onClick={handleSaveNewCard}>
                   <CheckIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip>
-                <IconButton color="error" onClick={() => setText('')}>
+              <Tooltip title="Cancel">
+                <IconButton color="error" onClick={() => setNewCardText('')}>
                   <CloseIcon />
                 </IconButton>
               </Tooltip>
-              <span className="counter">{text.length}/{maxCharacters}</span>
+              <span className="counter">{newCardText.length}/{maxCharacters}</span>
             </div>
           </div>
         </div>
@@ -163,10 +158,9 @@ function CardSection({ onPublish }) {
       </Button>
     </div>
   );
-}
+};
 
 export default CardSection;
-
 
 // tasto modifica nel new card
 //devo il tasto pubblica nel comtainer che ,mi permette di buttare la card nel container sopra

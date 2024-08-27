@@ -3,8 +3,10 @@
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-  max-height: 100%; /* Assicurati che la sezione delle card non superi l'altezza del contenitore */
+  max-height: 45%;
+  margin-top: 3%; /* Assicurati che la sezione delle card non superi l'altezza del contenitore */
 }
+
 
 .cards-container {
   display: flex;
@@ -12,7 +14,7 @@
   gap: 16px;
 }
 
-/* .card {
+.card {
   background-color: #fff599;
   border-radius: 8px;
   color: black;
@@ -21,7 +23,7 @@
   gap: 8px;
   max-height: 100%;
   overflow: hidden;
-} */
+}
 
 .card-content {
   display: flex;
@@ -31,16 +33,15 @@
   max-height: 100%;
   justify-content: center;
   align-items: center;
-  position: relative; /* Aggiungi questa riga per posizionare i figli in relazione a questo contenitore */
+  position: relative;
 }
 
 .delete-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2px; /* Distanza tra il textarea e il bottone */
+  margin-top: 2px;
 }
-
 
 .card-description-container {
   flex: 1;
@@ -48,26 +49,26 @@
   height: fit-content;
   max-width: 150px;
   max-height: 125px;
-  resize: none; /* Disabilita il ridimensionamento manuale */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombra per dare un effetto di rilievo */
-  border: 2px solid #f1910070; /* Bordo leggero per maggiore definizione */
-  border-radius: 4px; /* Angoli arrotondati per un aspetto più morbido */
+  resize: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid #f1910070;
+  border-radius: 4px;
   margin-bottom: 5px;
   background-color: #ffe6478e;
 }
 
 .text-field {
   font-size: 16px;
-  background-color: #fff599; /* Colore di sfondo per il campo di testo */
+  background-color: #fff599;
   overflow: hidden;
-  resize: none; /* Disabilita il ridimensionamento manuale */
+  resize: none;
   overflow-y: auto;
   text-align: center;
   align-items: center;
 }
 
 .new-card {
-  background-color: #fff599; /* Stile per fare in modo che la nuova card abbia lo stesso stile */
+  background-color: #fff599;
   border-radius: 8px;
   color: black;
   display: flex;
@@ -75,4 +76,16 @@
   gap: 8px;
   max-height: 100%;
   overflow: hidden;
+  padding: 3%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.counter {
+  font-size: 14px;
+  color: #666;
 }
