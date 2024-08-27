@@ -60,6 +60,7 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
     if (cards.length > 0) {
       onPublish(cards, column);
       setCards([]);
+     
     }
   };
 

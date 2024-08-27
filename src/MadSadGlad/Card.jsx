@@ -3,9 +3,12 @@ import { IconButton, Tooltip } from '@mui/material';
 import { Close as CloseIcon, Edit as EditIcon } from '@mui/icons-material';
 
 const Card = ({ card, index, onEdit, onDelete }) => (
-  <div className="editable-card" style={card.style}>
-    <div>{card.text}</div>
+  <div className="card" style={card.style}>  {/* Lo stile viene applicato direttamente */}
+    <div>{card.text}  {/* Mostra il testo della card */}
+    
+    </div>
     <div className="card-buttons">
+
       <Tooltip title="Edit">
         <IconButton color="default" onClick={() => onEdit(index)}>
           <EditIcon />

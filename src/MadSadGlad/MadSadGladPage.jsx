@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Column from './Column';
 import './MadSadGladPage.css';
-import Footer from './footer';
+import Footer from './Footer';
 
 const FirstPage = () => {
   const [cards, setCards] = useState({ mad: [], sad: [], glad: [] });
@@ -10,7 +10,22 @@ const FirstPage = () => {
   const [editingText, setEditingText] = useState('');
 
   const handlePublish = (newCards, column) => {
-    setCards({ ...cards, [column]: [...cards[column], ...newCards] });
+    // Aggiungi le nuove card pubblicate alla colonna specificata
+    setCards((prevCards) => ({
+      ...prevCards,
+      [column]: [...prevCards[column], ...newCards],
+    }));
+  };
+  
+
+  const handleSaveNewCard = (column, newCardText, cardStyle) => {
+    if (newCardText.trim()) {
+      const newCard = { text: newCardText, style: cardStyle, isEditing: false };
+      setCards((prevCards) => ({
+        ...prevCards,
+        [column]: [...prevCards[column], newCard],
+      }));
+    }
   };
 
   const handleEdit = (index, column) => {

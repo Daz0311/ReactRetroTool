@@ -13,3 +13,5 @@ const EditableParagraph = ({ text, onTextChange }) => (
 );
 
 export default EditableParagraph;
+//modificare in modo che l'iditable phargraph scompaia e che compaia un altra swzione che prende il suo posto dove all'interno vanno inserite dutte le card pubblicate e il testo poi deve scomparire
+//problema

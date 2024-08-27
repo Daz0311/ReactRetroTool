@@ -112,8 +112,9 @@
   padding: 10px; /* Padding per dare spazio interno */
   box-sizing: border-box; /* Assicura che il padding non influisca sulla larghezza totale */
   font-size: 25px;
-  height: 50%;
+  height: 90%;
   align-content: center;
+  
   
 }
 .editable-paragraph:focus {
