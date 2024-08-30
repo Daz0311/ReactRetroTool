@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EditableParagraph = ({ text, onTextChange }) => (
+const EditableParagraph  = ({ text, onTextChange }) => (
   <p
     contentEditable
     suppressContentEditableWarning={true}

@@ -3,6 +3,7 @@ import Header from './Header';
 import Column from './Column';
 import './MadSadGladPage.css';
 import Footer from './Footer';
+import { Box } from '@mui/material';
 
 const FirstPage = () => {
   const [cards, setCards] = useState({ mad: [], sad: [], glad: [] });
@@ -66,8 +67,19 @@ const FirstPage = () => {
 
   return (
     <div className="App">
+      
       <Header />
-      <div className="content">
+      
+      <Box sx={{
+        display:"flex",
+        flexDirection: {xs: 'column', md :"row" },// ridimensionamento
+        justifyContent:"space-between",
+        gap:10,
+        verticalAlign: "center",
+        paddingTop: 15,
+        paddingBottom:15
+
+       }}>
         <Column
           title="Mad"
           cards={cards.mad}
@@ -107,8 +119,9 @@ const FirstPage = () => {
           onCancelEdit={handleCancelEdit}
           columnName="glad"
         />
-      </div>
+      </Box>
       <Footer/>
+      
     </div>
   );
 };
@@ -116,4 +129,5 @@ const FirstPage = () => {
 export default FirstPage;
 
 //prendere lo stesso index quando modifico e poi salvarlo come nuovo
-//scompatare e portare dentro card section la parte che riguarda le
+//scompatare e portare dentro card section la parte che riguarda 
+//content class
