@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import CardSection from './CardSection';
 import Card from './Card';
-import EditableCard from './EditableCard';
 import EditableParagraph from './EditableParagraph';
 
-const Column = ({ title, cards, editIndex, editingText, onPublish, onEdit, onDelete, onTextChange, onSaveEdit, onCancelEdit, columnName, }) => {
+const Column = ({
+  title,
+  cards,
+  editIndex,
+  editingText,
+  onPublish,
+  onEdit,
+  onDelete,
+  onTextChange,
+  onSaveEdit,
+  onCancelEdit,
+  columnName,
+}) => {
   const [isPublished, setIsPublished] = useState(false);
 
   const handlePublish = (newCards) => {
@@ -25,27 +36,20 @@ const Column = ({ title, cards, editIndex, editingText, onPublish, onEdit, onDel
           </div>
         ) : (
           <div className="published-cards-section">
-            {cards.map((card, index) =>
-              editIndex?.index === index && editIndex?.column === columnName ? (
-                <EditableCard
-                  key={index}
-                  text={editingText}
-                  onChange={(e) => onTextChange(e.target.value)}
-                  onSave={onSaveEdit}
-                  onCancel={onCancelEdit}
-                />
-              ) : (
-                <Card
-                  key={index}
-                  card={card}
-                  index={index}
-                  onEdit={() => onEdit(index, columnName)}
-                  onDelete={() => onDelete(index, columnName)}
-                />
-              )
-            )}
+            {cards.map((card, index) => (
+              <Card
+                key={index}
+                text={editIndex?.index === index && editIndex?.column === columnName ? editingText : card.text}
+                isEditing={editIndex?.index === index && editIndex?.column === columnName}
+                onChange={(e) => onTextChange(e.target.value)}
+                onSave={onSaveEdit}
+                onCancel={onCancelEdit}
+                onEdit={() => onEdit(index, columnName)}
+                onDelete={() => onDelete(index, columnName)}
+              />
+            ))}
           </div>
-        )}   
+        )}
       </div>
       <CardSection onPublish={handlePublish} column={columnName} />
     </div>

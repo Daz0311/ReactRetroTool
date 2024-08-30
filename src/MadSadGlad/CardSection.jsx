@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { IconButton, Tooltip, Button } from '@mui/material';
-import { Check as CheckIcon, Close as CloseIcon, Edit as EditIcon } from '@mui/icons-material';
+import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 import AutoSizeTextArea from './AutoSizeText';
+import Card from './Card';
 import './CardSection.css';
 
 const CardSection = ({ onPublish, column, initialCards = [] }) => {
   const [cards, setCards] = useState(initialCards);
   const [newCardText, setNewCardText] = useState('');
-  const [cardStyle, setCardStyle] = useState({});
   const maxCharacters = 140;
 
   const handleNewCardChange = (event) => {
@@ -17,50 +17,30 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
     }
   };
 
-  const handleCardChange = (event, index) => {
-    const newText = event.target.value;
-    const updatedCards = [...cards];
-    updatedCards[index] = { ...updatedCards[index], text: newText };
-    setCards(updatedCards);
-  };
-
   const handleSaveNewCard = () => {
     if (newCardText.trim()) {
-      const newCard = { text: newCardText, style: cardStyle, isEditing: false };
+      const newCard = { text: newCardText, isEditing: false };
       setCards([...cards, newCard]);
       setNewCardText('');
-      setCardStyle({});
     }
   };
 
-  const handleSaveEdit = (index) => {
+  const handleEditCard = (index, newText) => {
     const updatedCards = [...cards];
-    updatedCards[index] = { ...updatedCards[index], text: updatedCards[index].text, isEditing: false };
+    updatedCards[index].text = newText;
+    updatedCards[index].isEditing = false;
     setCards(updatedCards);
   };
 
-  const handleEdit = (index) => {
-    const updatedCards = [...cards];
-    updatedCards[index] = { ...updatedCards[index], isEditing: true };
-    setCards(updatedCards);
-  };
-
-  const handleCancelEdit = (index) => {
-    const updatedCards = [...cards];
-    updatedCards[index] = { ...updatedCards[index], isEditing: false };
-    setCards(updatedCards);
-  };
-
-  const handleDelete = (index) => {
+  const handleDeleteCard = (index) => {
     const updatedCards = cards.filter((_, i) => i !== index);
     setCards(updatedCards);
   };
 
   const handlePublishAll = () => {
     if (cards.length > 0) {
-      onPublish(cards, column);
-      setCards([]);
-     
+      onPublish(cards);
+      setCards([]);  // Puoi scegliere se svuotare le card dopo la pubblicazione
     }
   };
 
@@ -68,56 +48,13 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
     <div className="cards-section">
       <div className="cards-container">
         {cards.map((card, index) => (
-          <div className="card" key={index} style={card.style}>
-            <div className="card-content">
-              <div className="card-description-container">
-                <AutoSizeTextArea
-                  value={card.text}
-                  onChange={(event) => handleCardChange(event, index)}
-                  readOnly={!card.isEditing}
-                  minFontSize={8}
-                  maxFontSize={16}
-                  stepGranularity={2}
-                  style={{
-                    width: '100%',
-                    height: '100px',
-                    textAlign: 'center',
-                    border: 'none',
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </div>
-              <div className="buttons">
-                {card.isEditing ? (
-                  <>
-                    <Tooltip title="Save">
-                      <IconButton color="success" onClick={() => handleSaveEdit(index)}>
-                        <CheckIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Cancel">
-                      <IconButton color="error" onClick={() => handleCancelEdit(index)}>
-                        <CloseIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </>
-                ) : (
-                  <>
-                    <Tooltip title="Edit">
-                      <IconButton color="primary" onClick={() => handleEdit(index)}>
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete">
-                      <IconButton color="error" onClick={() => handleDelete(index)}>
-                        <CloseIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
+          <Card
+            key={index}
+            text={card.text}
+            isEditing={card.isEditing}
+            onSave={(newText) => handleEditCard(index, newText)}
+            onDelete={() => handleDeleteCard(index)}
+          />
         ))}
         <div className="card new-card">
           <div className="card-content">
