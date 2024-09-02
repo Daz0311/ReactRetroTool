@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import Column from './Column';
-import './MadSadGladPage.css';
+
 import Footer from './Footer';
 import { Box } from '@mui/material';
 
@@ -72,12 +72,15 @@ const FirstPage = () => {
       
       <Box sx={{
         display:"flex",
-        flexDirection: {xs: 'column', md :"row" },// ridimensionamento
+        flexDirection: {xs: 'column', md :"row " },// ridimensionamento
         justifyContent:"space-between",
         gap:10,
         verticalAlign: "center",
         paddingTop: 15,
-        paddingBottom:15
+        paddingBottom:15,
+        paddingLeft:5,
+        paddingRight:5,
+        marginBottom: "5%"
 
        }}>
         <Column
@@ -131,3 +134,5 @@ export default FirstPage;
 //prendere lo stesso index quando modifico e poi salvarlo come nuovo
 //scompatare e portare dentro card section la parte che riguarda 
 //content class
+// CONTROLLO SUI CARATTERI NELLA PUBLISHED SECTION
+// SE NON CI SONO CARD PUBBLCIATE DI NUOCO EDITABLE PHARAGRAPH

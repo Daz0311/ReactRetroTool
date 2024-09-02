@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import CardSection from './CardSection';
 import Card from './Card';
 import EditableParagraph from './EditableParagraph';
@@ -24,18 +25,83 @@ const Column = ({
   };
 
   return (
-    <div className={`column ${columnName}`}>
-      <h2>{title}</h2>
-      <div className="editable-paragraph-container">
+    <Box
+      className={`column ${columnName}`}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        backgroundColor: '#fff',
+        border: '1px solid #ddd',
+        padding: 2,
+        borderRadius: 1,
+        boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
+        position: 'relative',
+        maxHeight: '550px',
+        overflowY: 'auto',
+        height:'550px',
+        minWidth:'390px'
+        
+      }}
+    >
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{
+          backgroundColor: '#4CAF50',
+          color: 'white',
+          padding: '10px',
+          margin: '-15px -15px 20px -15px',
+          borderRadius: '10px 10px 0 0',
+          textAlign: 'center',
+          fontSize: '20px',
+        }}
+      >
+        {title}
+      </Typography>
+      <Box
+        sx={{
+          height: '100%',
+          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {!isPublished ? (
-          <div className="editable-paragraph">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 1,
+              transition: 'background-color 0.3s ease',
+              overflowWrap: 'break-word',
+              whiteSpace: 'pre-wrap',
+              width: '100%',
+              height: '90%',
+              overflowY: 'auto',
+              backgroundColor: '#f8f8f8',
+              boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+              boxSizing: 'border-box',
+              fontSize: '25px',
+              alignContent: 'center',
+            }}
+          >
             <EditableParagraph
               text={`What has driven you ${title.toLowerCase()}? You might focus on issues, time wasters, unpleasant surprises, etc.`}
               onTextChange={onTextChange}
             />
-          </div>
+          </Box>
         ) : (
-          <div className="published-cards-section">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+            }}
+          >
             {cards.map((card, index) => (
               <Card
                 key={index}
@@ -46,13 +112,14 @@ const Column = ({
                 onCancel={onCancelEdit}
                 onEdit={() => onEdit(index, columnName)}
                 onDelete={() => onDelete(index, columnName)}
+                isPublishedSection={isPublished} // Imposta a true se le card sono pubblicate
               />
             ))}
-          </div>
+          </Box>
         )}
-      </div>
+      </Box>
       <CardSection onPublish={handlePublish} column={columnName} />
-    </div>
+    </Box>
   );
 };
 

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { IconButton, Tooltip, Button } from '@mui/material';
+import { IconButton, Tooltip, Button, Box } from '@mui/material';
 import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 import AutoSizeTextArea from './AutoSizeText';
 import Card from './Card';
-import './CardSection.css';
 
-const CardSection = ({ onPublish, column, initialCards = [] }) => {
+const CardSection = ({ onPublish, initialCards = [] }) => {
   const [cards, setCards] = useState(initialCards);
   const [newCardText, setNewCardText] = useState('');
   const maxCharacters = 140;
@@ -45,8 +44,24 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
   };
 
   return (
-    <div className="cards-section">
-      <div className="cards-container">
+    <Box className="cards-section" 
+   sx= {{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px',
+      overflowY: 'auto',
+      maxHeight: '200px',
+      marginTop: '2%',
+      minHeight: '200px',
+   }}>
+      <Box className="cards-container"
+      sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px'
+
+
+      }}>
         {cards.map((card, index) => (
           <Card
             key={index}
@@ -56,9 +71,47 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
             onDelete={() => handleDeleteCard(index)}
           />
         ))}
-        <div className="card new-card">
-          <div className="card-content">
-            <div className="card-description-container">
+        <Box className="card new-card"
+        sx={{
+          backgroundColor: '#fff599',
+          borderRadius: '8px',
+          color: 'black',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+          maxHeight: '300px',
+          overflow: 'hidden',
+          padding: '3%',
+
+
+        }}>
+          <Box className="card-content"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            flex: 1,
+            maxHeight: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'relative',
+
+          }}>
+            <Box className="card-description-container"
+            sx={{flex: 1,
+              width: 'fit-content',
+              height: 'fit-content',
+              maxWidth: '150px',
+              maxHeight: '125px',
+              resize: 'none',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+              border: '2px solid #f1910070',
+              borderRadius: '4px',
+              marginBottom: '5px',
+              backgroundColor: '#ffe6478e',
+              marginTop: '2%',
+
+            }}>
               <AutoSizeTextArea
                 value={newCardText}
                 onChange={handleNewCardChange}
@@ -74,8 +127,13 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
                   backgroundColor: 'transparent',
                 }}
               />
-            </div>
-            <div className="buttons">
+            </Box>
+            <Box className="buttons"
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
               <Tooltip title="Save">
                 <IconButton color="success" onClick={handleSaveNewCard}>
                   <CheckIcon />
@@ -87,18 +145,20 @@ const CardSection = ({ onPublish, column, initialCards = [] }) => {
                 </IconButton>
               </Tooltip>
               <span className="counter">{newCardText.length}/{maxCharacters}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
       <Button variant="contained" onClick={handlePublishAll} style={{ marginTop: '10px' }}>
         Publish All
       </Button>
-    </div>
+    </Box>
   );
 };
 
 export default CardSection;
+
+// va sistemato il controllo sui caratteri
 
 // tasto modifica nel new card
 //devo il tasto pubblica nel comtainer che ,mi permette di buttare la card nel container sopra
