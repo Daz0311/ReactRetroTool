@@ -167,5 +167,7 @@ const Card = ({
 };
 
 export default Card;
+//anceh se non clicco il pulsante viene reso editabile e devo cambiarlo
+
 
 // cancella l'ultimo e invece deve richiamre se stesso per cancellare

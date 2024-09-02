@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import { TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -13,6 +13,7 @@ const StyledTextField = styled(TextField)(({ theme, fontSize }) => ({
   },
   '& .MuiOutlinedInput-root': {
     border: 'none', // Rimuove il bordo
+    height: '100%',
     '& fieldset': {
       border: 'none', // Rimuove il bordo del fieldset
     },
@@ -26,11 +27,11 @@ const StyledTextField = styled(TextField)(({ theme, fontSize }) => ({
   '& .MuiInputBase-input': {
     overflow: 'hidden',
     textAlign: 'center',
-    height:'100%'
+    height: '100%',
   },
 }));
 
-function AutoSizeTextArea({
+function AutoSizeTextField({
   value,
   onChange,
   minFontSize = 10,
@@ -41,18 +42,23 @@ function AutoSizeTextArea({
   const [fontSize, setFontSize] = useState(maxFontSize);
   const textFieldRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const adjustFontSize = () => {
       if (textFieldRef.current) {
         const textArea = textFieldRef.current.querySelector('textarea');
-        let currentFontSize = maxFontSize;
 
         if (textArea) {
+          const containerHeight = textArea.clientHeight;
+          const containerWidth = textArea.clientWidth;
+          let currentFontSize = maxFontSize;
+
+          // Imposta il fontSize iniziale
           textArea.style.fontSize = `${currentFontSize}px`;
 
+          // Regola la dimensione del font fino a quando il testo rientra nel contenitore
           while (
-            currentFontSize > minFontSize &&
-            (textArea.scrollHeight > textArea.clientHeight || textArea.scrollWidth > textArea.clientWidth)
+            (textArea.scrollHeight > containerHeight || textArea.scrollWidth > containerWidth) &&
+            currentFontSize > minFontSize
           ) {
             currentFontSize -= stepGranularity;
             textArea.style.fontSize = `${currentFontSize}px`;
@@ -73,7 +79,7 @@ function AutoSizeTextArea({
       multiline
       value={value}
       onChange={onChange}
-      variant="outlined" // O qualsiasi variante desiderata
+      variant="outlined"
       fontSize={`${fontSize}px`}
       sx={{
         width: '100%',
@@ -87,4 +93,4 @@ function AutoSizeTextArea({
   );
 }
 
-export default AutoSizeTextArea;
+export default AutoSizeTextField;
