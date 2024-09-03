@@ -1,96 +1,74 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
-import { TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import React, { useState, useEffect, useRef } from 'react';
 
-// Creiamo uno styled component per il TextField
-const StyledTextField = styled(TextField)(({ theme, fontSize }) => ({
-  '& .MuiInputBase-root': {
-    fontSize: fontSize,
-    overflow: 'hidden',
-    resize: 'none',
-    padding: 0,
-    textAlign: 'center',
-  },
-  '& .MuiOutlinedInput-root': {
-    border: 'none', // Rimuove il bordo
-    height: '100%',
-    '& fieldset': {
-      border: 'none', // Rimuove il bordo del fieldset
-    },
-    '&:hover fieldset': {
-      border: 'none', // Rimuove il bordo del fieldset anche quando il campo è hover
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none', // Rimuove il bordo del fieldset quando il campo è in focus
-    },
-  },
-  '& .MuiInputBase-input': {
-    overflow: 'hidden',
-    textAlign: 'center',
-    height: '100%',
-  },
-}));
-
-function AutoSizeTextField({
+function AutoSizeTextArea({
   value,
   onChange,
-  minFontSize = 10,
-  maxFontSize = 40,
-  stepGranularity = 2,
+  onKeyDown, // Aggiungi questa proprietà
+  minFontSize = 14,
+  maxFontSize = 20,
+  stepGranularity = 1,
+  maxWidth = 400,
+  maxHeight = 100,
   ...props
 }) {
   const [fontSize, setFontSize] = useState(maxFontSize);
-  const textFieldRef = useRef(null);
+  const textAreaRef = useRef(null);
+  const canvasRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const adjustFontSize = () => {
-      if (textFieldRef.current) {
-        const textArea = textFieldRef.current.querySelector('textarea');
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      const textArea = textAreaRef.current;
 
-        if (textArea) {
-          const containerHeight = textArea.clientHeight;
-          const containerWidth = textArea.clientWidth;
-          let currentFontSize = maxFontSize;
+      if (textArea && ctx) {
+        let currentFontSize = maxFontSize;
+        let textFits = false;
 
-          // Imposta il fontSize iniziale
-          textArea.style.fontSize = `${currentFontSize}px`;
+        while (currentFontSize >= minFontSize && !textFits) {
+          ctx.font = `${currentFontSize}px Arial`;
+          const textWidth = ctx.measureText(value).width;
+          const textHeight = currentFontSize; // Altezza stimata come dimensione del font
 
-          // Regola la dimensione del font fino a quando il testo rientra nel contenitore
-          while (
-            (textArea.scrollHeight > containerHeight || textArea.scrollWidth > containerWidth) &&
-            currentFontSize > minFontSize
-          ) {
+          // Verifica se il testo rientra nell'area disponibile
+          if (textWidth <= maxWidth && textHeight <= maxHeight) {
+            textFits = true;
+          } else {
             currentFontSize -= stepGranularity;
-            textArea.style.fontSize = `${currentFontSize}px`;
           }
-
-          setFontSize(currentFontSize);
         }
+
+        // Imposta la dimensione del font ottimale
+        setFontSize(currentFontSize);
       }
     };
 
     adjustFontSize();
-  }, [value, minFontSize, maxFontSize, stepGranularity]);
+  }, [value, minFontSize, maxFontSize, stepGranularity, maxWidth, maxHeight]);
 
   return (
-    <StyledTextField
-      {...props}
-      inputRef={textFieldRef}
-      multiline
-      value={value}
-      onChange={onChange}
-      variant="outlined"
-      fontSize={`${fontSize}px`}
-      sx={{
-        width: '100%',
-        height: '100px',
-        '& .MuiOutlinedInput-root': {
-          border: 'none', // Rimuove il bordo
-        },
-        ...props.sx, // Permette la personalizzazione tramite sx
-      }}
-    />
+    <>
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
+      <textarea
+        {...props}
+        ref={textAreaRef}
+        value={value}
+        onChange={onChange}
+        onKeyDown={onKeyDown}  // Aggiungi il gestore dell'evento onKeyDown
+        style={{
+          fontSize: `${fontSize}px`,
+          overflow: 'hidden',
+          resize: 'none',
+          outline: 'none',
+          width: `${maxWidth}px`,
+          height: `${maxHeight}px`,
+          textAlign: 'center',
+          ...props.style,
+        }}
+      />
+    </>
   );
 }
 
-export default AutoSizeTextField;
+export default AutoSizeTextArea;
+

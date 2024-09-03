@@ -81,6 +81,7 @@ const Card = ({
             height: 'fit-content',
             maxWidth: '150px',
             maxHeight: '125px',
+          
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
             border: '2px solid #f1910070',
             borderRadius: '4px',
@@ -101,11 +102,11 @@ const Card = ({
               }
             }}
             readOnly={!editable}
-            minFontSize={8}
-            maxFontSize={16}
+            minFontSize={12}
+            maxFontSize={20}
             stepGranularity={2}
             style={{
-              width: '100%',
+              width: '150px',
               height: '100px',
               textAlign: 'center',
               border: 'none',

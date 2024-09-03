@@ -43,25 +43,31 @@ const CardSection = ({ onPublish, initialCards = [] }) => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Impedisce il comportamento predefinito di invio su un textarea
+      handleSaveNewCard();  // Salva la card
+      setNewCardText('');  // Pulisce il campo di testo per una nuova card
+    }
+  };
+
   return (
-    <Box className="cards-section" 
-   sx= {{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '16px',
-      overflowY: 'auto',
-      maxHeight: '200px',
-      marginTop: '2%',
-      minHeight: '200px',
-   }}>
-      <Box className="cards-container"
-      sx={{ 
+    <Box className="cards-section"
+      sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px'
-
-
+        gap: '16px',
+        overflowY: 'auto',
+        maxHeight: '200px',
+        marginTop: '2%',
+        minHeight: '200px',
       }}>
+      <Box className="cards-container"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}>
         {cards.map((card, index) => (
           <Card
             key={index}
@@ -72,55 +78,55 @@ const CardSection = ({ onPublish, initialCards = [] }) => {
           />
         ))}
         <Box className="card new-card"
-        sx={{
-          backgroundColor: '#fff599',
-          borderRadius: '8px',
-          color: 'black',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-          maxHeight: '300px',
-          overflow: 'hidden',
-          padding: '3%',
-
-
-        }}>
-          <Box className="card-content"
           sx={{
+            backgroundColor: '#fff599',
+            borderRadius: '8px',
+            color: 'black',
             display: 'flex',
             flexDirection: 'column',
             gap: '8px',
-            flex: 1,
-            maxHeight: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-
+            maxHeight: '300px',
+            overflow: 'hidden',
+            padding: '3%',
           }}>
-            <Box className="card-description-container"
-            sx={{flex: 1,
-              width: 'fit-content',
-              height: 'fit-content',
-              maxWidth: '150px',
-              maxHeight: '125px',
-              resize: 'none',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-              border: '2px solid #f1910070',
-              borderRadius: '4px',
-              marginBottom: '5px',
-              backgroundColor: '#ffe6478e',
-              marginTop: '2%',
-
+          <Box className="card-content"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '8px',
+              flex: 1,
+              maxHeight: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
             }}>
+            <Box className="card-description-container"
+              sx={{
+                flex: 1,
+                width: 'fit-content',
+                height: 'fit-content',
+                maxWidth: '150px',
+                maxHeight: '125px',
+                minHeight: '108px',
+                minWidth: '150px',
+                resize: 'none',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                border: '2px solid #f1910070',
+                borderRadius: '4px',
+                marginBottom: '5px',
+                backgroundColor: '#ffe6478e',
+                marginTop: '2%',
+              }}>
               <AutoSizeTextArea
                 value={newCardText}
                 onChange={handleNewCardChange}
+                onKeyDown={handleKeyDown}  // Aggiungi il gestore dell'evento onKeyDown
                 placeholder="Type here"
-                minFontSize={8}
-                maxFontSize={16}
-                stepGranularity={2}
+                minFontSize={12}
+                maxFontSize={19}
+                stepGranularity={1}
                 style={{
-                  width: '100%',
+                  width: '145px',
                   height: '100px',
                   textAlign: 'center',
                   border: 'none',
@@ -129,11 +135,11 @@ const CardSection = ({ onPublish, initialCards = [] }) => {
               />
             </Box>
             <Box className="buttons"
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
               <Tooltip title="Save">
                 <IconButton color="success" onClick={handleSaveNewCard}>
                   <CheckIcon />
@@ -157,6 +163,7 @@ const CardSection = ({ onPublish, initialCards = [] }) => {
 };
 
 export default CardSection;
+
 
 // va sistemato il controllo sui caratteri
 

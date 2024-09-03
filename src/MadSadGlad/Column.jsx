@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import CardSection from './CardSection';
 import Card from './Card';
@@ -18,6 +18,13 @@ const Column = ({
   columnName,
 }) => {
   const [isPublished, setIsPublished] = useState(false);
+
+  useEffect(() => {
+    // Aggiorna lo stato di pubblicazione quando cambia l'elenco delle card
+    if (cards.length === 0) {
+      setIsPublished(false); // Mostra il paragrafo modificabile se non ci sono card
+    }
+  }, [cards]);
 
   const handlePublish = (newCards) => {
     onPublish(newCards, columnName);
@@ -39,9 +46,8 @@ const Column = ({
         position: 'relative',
         maxHeight: '550px',
         overflowY: 'auto',
-        height:'550px',
-        minWidth:'390px'
-        
+        height: '550px',
+        minWidth: '390px'
       }}
     >
       <Typography
